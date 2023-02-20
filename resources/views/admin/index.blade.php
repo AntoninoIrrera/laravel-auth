@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row my-3">
         <div class="col-12 text-end">
-            <a href="#" class="btn btn-secondary me-4">create</a>
+            <a href="{{route('admin.project.create')}}" class="btn btn-secondary me-4">create</a>
         </div>
     </div>
     <table class="table">
