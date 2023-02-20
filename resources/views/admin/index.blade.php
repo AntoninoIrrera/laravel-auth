@@ -26,7 +26,7 @@
                 <td>{{$project['relase_date']}}</td>
                 <td>{{$project['description']}}</td>
                 <td>
-                    <a href="#" class="btn btn-primary">show</a>
+                    <a href="{{route('admin.project.show',$project['id'])}}" class="btn btn-primary">show</a>
                     <a href="#" class="btn btn-warning">edit</a>
                     <a href="#" class="btn btn-danger">delete</a>
                 </td>
