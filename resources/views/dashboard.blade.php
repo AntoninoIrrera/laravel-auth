@@ -18,6 +18,8 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+                    <p class="card-text">Benvenuto/a {{ Auth::user()->name }}</p>
                 </div>
             </div>
         </div>
