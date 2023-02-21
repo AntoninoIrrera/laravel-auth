@@ -50,6 +50,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/admin/project') }}">{{ __('projects') }}</a>
                         </li>
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/project') }}">{{ __('projects') }}</a>
+                        </li>
                         @endif
                     </ul>
 
