@@ -11,6 +11,22 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+    protected $regoleValidazione = [
+            'title' => 'required|unique:projects|max:50',
+            'relase_date' => 'required|date',
+            'description' => 'required',
+    ];
+    protected $messaggiValidazione = [
+            'title.required' => 'il campo è obbligatorio',
+            'title.unique' => 'il campo con questa voce esiste già',
+            'title.max' => 'il campo non può contenere più di 50 caratteri',
+            'relase_date.required' => 'il campo è obbligatorio',
+            'relase_date.date' => 'il campo deve contenere una data valida',
+            'description.required' => 'il campo è obbligatorio',
+        ];
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -42,21 +58,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'title' => 'required|unique:projects|max:50',
-            'relase_date' => 'required|date',
-            'description' => 'required',
-        ],
-        [
-
-            'title.required' => 'il campo è obbligatorio',
-            'title.unique' => 'il campo con questa voce esiste già',
-            'title.max' => 'il campo non può contenere più di 50 caratteri',
-            'relase_date.required' => 'il campo è obbligatorio',
-            'relase_date.date' => 'il campo deve contenere una data valida',
-            'description.required' => 'il campo è obbligatorio',
-
-        ]);
+        $data = $request->validate($this->regoleValidazione,$this->messaggiValidazione);
 
         $newProject = new Project();
         $newProject->fill($data);
@@ -105,28 +107,12 @@ class ProjectController extends Controller
 
         // $project = Project::findOrFail($id);
 
+        $regoleDaAggiornare = $this->regoleValidazione;
 
-        $data = $request->validate(
-            [
-                'title' => ['required',Rule::unique('projects')->ignore($project->id),'max:50'],
-                'relase_date' => 'required|date',
-                'description' => 'required',
-            ],
-            [
-
-                'title.required' => 'il campo è obbligatorio',
-                'title.unique' => 'il campo con questa voce esiste già',
-                'title.max' => 'il campo non può contenere più di 50 caratteri',
-                'relase_date.required' => 'il campo è obbligatorio',
-                'relase_date.date' => 'il campo deve contenere una data valida',
-                'description.required' => 'il campo è obbligatorio',
-
-
-            ]
-        );
-
-
-
+        $regoleDaAggiornare['title'] = ['required',Rule::unique('projects')->ignore($project->id),'max:50'];
+        
+        $data = $request->validate($regoleDaAggiornare,$this->messaggiValidazione);
+        
         $project->update($data);
 
         return redirect()->route('admin.project.show', $project->id)->with('message', "l'elemento è stato modificato correttamente");
