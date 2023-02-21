@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -39,7 +42,21 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $request->validate([
+            'title' => 'required|unique:projects|max:50',
+            'relase_date' => 'required|date',
+            'description' => 'required',
+        ],
+        [
+
+            'title.required' => 'il campo è obbligatorio',
+            'title.unique' => 'il campo con questa voce esiste già',
+            'title.max' => 'il campo non può contenere più di 50 caratteri',
+            'relase_date.required' => 'il campo è obbligatorio',
+            'relase_date.date' => 'il campo deve contenere una data valida',
+            'description.required' => 'il campo è obbligatorio',
+
+        ]);
 
         $newProject = new Project();
         $newProject->fill($data);
@@ -85,9 +102,30 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
 
         $project = Project::findOrFail($id);
+
+
+        $data = $request->validate(
+            [
+                'title' => ['required',Rule::unique('projects')->ignore($project->id),'max:50'],
+                'relase_date' => 'required|date',
+                'description' => 'required',
+            ],
+            [
+
+                'title.required' => 'il campo è obbligatorio',
+                'title.unique' => 'il campo con questa voce esiste già',
+                'title.max' => 'il campo non può contenere più di 50 caratteri',
+                'relase_date.required' => 'il campo è obbligatorio',
+                'relase_date.date' => 'il campo deve contenere una data valida',
+                'description.required' => 'il campo è obbligatorio',
+
+
+            ]
+        );
+
+
 
         $project->update($data);
 
