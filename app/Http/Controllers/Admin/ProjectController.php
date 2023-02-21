@@ -68,13 +68,13 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Project $project
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
 
-        $project = Project::findOrFail($id);
+        // $project = Project::findOrFail($id);
 
         return view('admin.show',compact('project'));
 
@@ -83,12 +83,12 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Project $project
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        $project = Project::findOrFail($id);
+        // $project = Project::findOrFail($id);
 
         return view('admin.edit', compact('project'));
     }
@@ -97,13 +97,13 @@ class ProjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Project $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
 
-        $project = Project::findOrFail($id);
+        // $project = Project::findOrFail($id);
 
 
         $data = $request->validate(
@@ -135,12 +135,12 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Project $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        $project = Project::findOrFail($id);
+        // $project = Project::findOrFail($id);
 
         $project->delete();
 
