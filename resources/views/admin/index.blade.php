@@ -4,7 +4,14 @@
 
 <div class="container">
     <div class="row my-3">
-        <div class="col-12 text-end">
+        <div class="col-6">
+            @if (session('message'))
+            <div class="alert alert-info mt-3 d-inline-block">
+                {{session('message')}}
+            </div>
+            @endif
+        </div>
+        <div class="col-6 d-flex justify-content-end align-items-center">
             <a href="{{route('admin.project.create')}}" class="btn btn-secondary me-4">create</a>
         </div>
     </div>

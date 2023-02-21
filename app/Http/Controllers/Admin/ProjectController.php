@@ -45,7 +45,7 @@ class ProjectController extends Controller
         $newProject->fill($data);
         $newProject->save();
 
-        return redirect()->route('admin.project.show',$newProject->id);
+        return redirect()->route('admin.project.show',$newProject->id)->with('message',"l'elemento è stato creato correttamente");
     }
 
     /**
@@ -91,7 +91,7 @@ class ProjectController extends Controller
 
         $project->update($data);
 
-        return redirect()->route('admin.project.show', $project->id);
+        return redirect()->route('admin.project.show', $project->id)->with('message', "l'elemento è stato modificato correttamente");
     }
 
     /**
@@ -106,7 +106,7 @@ class ProjectController extends Controller
 
         $project->delete();
 
-        return redirect()->route('admin.project.index');
+        return redirect()->route('admin.project.index')->with('message', "l'elemento è stato eliminato correttamente");
 
     }
 }

@@ -3,7 +3,11 @@
 @section('content')
 
 <div class="container">
-
+    @if (session('message'))
+    <div class="alert alert-info mt-3">
+        {{session('message')}}
+    </div>
+    @endif
     <div class="card">
         <div class="card-header">
             Featured
