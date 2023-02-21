@@ -16,7 +16,7 @@
             @endif
         </div>
         <div class="col-6 d-flex justify-content-end align-items-center">
-            <a href="{{route('admin.project.create')}}" class="btn btn-secondary">create</a>
+            <a href="{{route('admin.project.create')}}" class="btn btn-secondary"><i class="fa-solid fa-plus"></i></a>
         </div>
     </div>
     <table class="table">
@@ -37,12 +37,12 @@
                 <td>{{$project['relase_date']}}</td>
                 <td>{{$project['description']}}</td>
                 <td>
-                    <a href="{{route('admin.project.show',$project['id'])}}" class="btn btn-primary">show</a>
-                    <a href="{{route('admin.project.edit',$project['id'])}}" class="btn btn-warning">edit</a>
-                    <form class="d-inline-block" action="{{route('admin.project.destroy',$project->id)}}" method="POST">
+                    <a href="{{route('admin.project.show',$project['id'])}}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
+                    <a href="{{route('admin.project.edit',$project['id'])}}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form class="d-inline-block double-confirm" action="{{route('admin.project.destroy',$project->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-danger">delete</button>
+                        <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                     </form>
                 </td>
             </tr>
