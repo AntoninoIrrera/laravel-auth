@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('script')
+@vite(['resources/js/popupDelete.js'])
+@endsection
+
 @section('content')
 
 <div class="container">
