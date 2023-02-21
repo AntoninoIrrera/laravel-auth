@@ -16,7 +16,7 @@
             @endif
         </div>
         <div class="col-6 d-flex justify-content-end align-items-center">
-            <a href="{{route('admin.project.create')}}" class="btn btn-secondary me-4">create</a>
+            <a href="{{route('admin.project.create')}}" class="btn btn-secondary">create</a>
         </div>
     </div>
     <table class="table">
@@ -49,6 +49,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $projects->links() }}
 </div>
 
 @endsection
