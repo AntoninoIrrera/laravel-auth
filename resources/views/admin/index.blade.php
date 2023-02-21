@@ -28,7 +28,11 @@
                 <td>
                     <a href="{{route('admin.project.show',$project['id'])}}" class="btn btn-primary">show</a>
                     <a href="{{route('admin.project.edit',$project['id'])}}" class="btn btn-warning">edit</a>
-                    <a href="#" class="btn btn-danger">delete</a>
+                    <form class="d-inline-block" action="{{route('admin.project.destroy',$project->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger">delete</button>
+                    </form>
                 </td>
             </tr>
             @endforeach
