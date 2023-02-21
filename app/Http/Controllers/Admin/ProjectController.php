@@ -71,7 +71,9 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        return view('admin.edit', compact('project'));
     }
 
     /**
@@ -83,7 +85,13 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $project = Project::findOrFail($id);
+
+        $project->update($data);
+
+        return redirect()->route('admin.project.show', $project->id);
     }
 
     /**
