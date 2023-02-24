@@ -25,7 +25,6 @@
                 <th scope="col">id</th>
                 <th scope="col">title</th>
                 <th scope="col">relase date</th>
-                <th scope="col">description</th>
                 <th scope="col">operations</th>
             </tr>
         </thead>
@@ -35,7 +34,6 @@
                 <th scope="row">{{$project['id']}}</th>
                 <td>{{$project['title']}}</td>
                 <td>{{$project['relase_date']}}</td>
-                <td>{{$project['description']}}</td>
                 <td>
                     <a href="{{route('admin.project.show',$project['id'])}}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
                     <a href="{{route('admin.project.edit',$project['id'])}}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
