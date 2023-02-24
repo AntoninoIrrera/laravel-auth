@@ -16,6 +16,7 @@ class ProjectController extends Controller
             'title' => 'required|unique:projects|max:50',
             'relase_date' => 'required|date',
             'image' => 'max:300|image',
+            'description' => '',
         ];
     protected $messaggiValidazione = [
             'title.required' => 'il campo è obbligatorio.',
