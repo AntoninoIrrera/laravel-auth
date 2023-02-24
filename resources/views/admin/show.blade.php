@@ -8,11 +8,14 @@
         {{session('message')}}
     </div>
     @endif
-    <div class="card">
-        <div class="card-header">
+    <div class="card mt-3">
+        <div class="card-header text-center">
             Featured
         </div>
-        <div class="card-body">
+        @if (isset($project->image))
+        <img src="{{asset('storage/' . $project->image)}}" class="card-img-top w-25 mt-3 align-self-center" alt="immagine">
+        @endif
+        <div class="card-body text-center">
             <h5 class="card-title">{{$project['title']}}</h5>
             <p class="card-text">{{$project['description']}}</p>
             <p class="card-text">{{$project['relase_date']}}</p>

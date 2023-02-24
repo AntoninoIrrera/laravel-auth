@@ -8,21 +8,23 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
     protected $regoleValidazione = [
             'title' => 'required|unique:projects|max:50',
             'relase_date' => 'required|date',
-            'description' => 'required',
-    ];
+            'image' => 'max:300|image',
+        ];
     protected $messaggiValidazione = [
-            'title.required' => 'il campo è obbligatorio',
-            'title.unique' => 'il campo con questa voce esiste già',
-            'title.max' => 'il campo non può contenere più di 50 caratteri',
-            'relase_date.required' => 'il campo è obbligatorio',
-            'relase_date.date' => 'il campo deve contenere una data valida',
-            'description.required' => 'il campo è obbligatorio',
+            'title.required' => 'il campo è obbligatorio.',
+            'title.unique' => 'il campo con questa voce esiste già.',
+            'title.max' => 'il campo non può contenere più di 50 caratteri.',
+            'relase_date.required' => 'il campo è obbligatorio.',
+            'relase_date.date' => 'il campo deve contenere una data valida.',
+            'image.image' => 'inserire un immagine valida.',
+            'image.max' => "l'immagine inserita e troppo grande, deve pesare massimo 300kb."
         ];
 
 
@@ -61,7 +63,11 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate($this->regoleValidazione,$this->messaggiValidazione);
-
+       
+        if (isset($data['image'])) {
+            $data['image'] = Storage::put('img',$data['image']);
+        }
+        
         $newProject = new Project();
         $newProject->fill($data);
         $newProject->save();
@@ -107,6 +113,8 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
 
+      
+
         // $project = Project::findOrFail($id);
 
         $regoleDaAggiornare = $this->regoleValidazione;
@@ -114,7 +122,14 @@ class ProjectController extends Controller
         $regoleDaAggiornare['title'] = ['required',Rule::unique('projects')->ignore($project->id),'max:50'];
         
         $data = $request->validate($regoleDaAggiornare,$this->messaggiValidazione);
-        
+
+
+        if(isset($data['image'])){
+            Storage::delete('img', $project->image);
+            $data['image'] = Storage::put('img', $data['image']);
+        }
+
+
         $project->update($data);
 
         return redirect()->route('admin.project.show', $project->id)->with('message', "l'elemento è stato modificato correttamente");
@@ -131,6 +146,10 @@ class ProjectController extends Controller
         // $project = Project::findOrFail($id);
 
         $project->delete();
+
+        if (isset($project->image)) {
+            Storage::delete('img', $project->image);
+        }
 
         return redirect()->route('admin.project.index')->with('message', "l'elemento è stato eliminato correttamente");
 

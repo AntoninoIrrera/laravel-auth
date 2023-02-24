@@ -1,5 +1,5 @@
 <div class="container">
-    <form action="{{ route($route, $project->id) }}" method="POST" class="mt-3">
+    <form action="{{ route($route, $project->id) }}" method="POST" class="mt-3" enctype="multipart/form-data">
 
         @csrf
         @method($methodRoute)
@@ -47,6 +47,21 @@
             </div>
             @endif
         </div>
+
+
+        <div class="mb-3">
+
+            <label class="form-label" for="image">Inserisci l'immagine</label>
+            <input class="form-control {{$errors->has('image') ? 'is-invalid' : '' }}" type="file" name="image" id="image">
+            @if($errors->has('image'))
+            <div class="alert alert-danger mt-3">
+                @foreach ($errors->get('image') as $error)
+                {{$error}}
+                @endforeach
+            </div>
+            @endif
+        </div>
+
 
         <div class="mb-3">
             <button type="submit" class="btn btn-success">{{$bottone}}</button>
